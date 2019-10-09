@@ -8,6 +8,8 @@ package pizzas;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.print.PrinterException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,36 +26,34 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Ventana extends javax.swing.JFrame {
 
     Acerca_De acerca;
-    Icon icHawaiana, icVegetariana,icItaliana, icPeperoni, icSarten;
-    private ArrayList <Pedido> pedido= null;
-    
+    Icon icHawaiana, icVegetariana, icItaliana, icPeperoni, icSarten;
+    private ArrayList<Pedido> pedido = null;
+
     public Ventana() {
         initComponents();
-       acerca = new Acerca_De(this, true);
+        acerca = new Acerca_De(this, true);
         calcularPrecio();
         pedido = new ArrayList<>();
-        
-       llenarPedidos();
-       
-       /*icHawaiana = new ImageIcon(getClass().getResource("hawaiana.jpg"));
+
+        llenarPedidos();
+
+        /*icHawaiana = new ImageIcon(getClass().getResource("hawaiana.jpg"));
        icItaliana = new ImageIcon(getClass().getResource("italiana.jpg"));
        icPeperoni = new ImageIcon(getClass().getResource("peperoni.jpg"));
        icSarten = new ImageIcon(getClass().getResource("sarten.jpg"));
        icVegetariana = new ImageIcon(getClass().getResource("vegetariana.jpg"));
-       */
-       
-       
-       lbl_imagen.setSize(200,200);
-       
-       //      HAWAIANA
-       //Se obtiene la imagen de donde la tengamos
+         */
+        lbl_imagen.setSize(200, 200);
+
+        //      HAWAIANA
+        //Se obtiene la imagen de donde la tengamos
         ImageIcon imgIconHw = new ImageIcon(getClass().getResource("hawaiana.jpg"));
         //Escala la imagen
         Image imgEscaladaHw = imgIconHw.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         icHawaiana = new ImageIcon(imgEscaladaHw);
         //Se setea la imagen en el Label
         lbl_imagen.setIcon(icHawaiana);
-       
+
         //      ITALIANA
         //Se obtiene la imagen de donde la tengamos
         ImageIcon imgIconIt = new ImageIcon(getClass().getResource("italiana.jpg"));
@@ -62,7 +62,7 @@ public class Ventana extends javax.swing.JFrame {
         icItaliana = new ImageIcon(imgEscaladaIt);
         //Se setea la imagen en el Label
         lbl_imagen.setIcon(icItaliana);
-        
+
         //      PEPERONI
         //Se obtiene la imagen de donde la tengamos
         ImageIcon imgIconPe = new ImageIcon(getClass().getResource("peperoni.jpg"));
@@ -71,7 +71,7 @@ public class Ventana extends javax.swing.JFrame {
         icPeperoni = new ImageIcon(imgEscaladaPe);
         //Se setea la imagen en el Label
         lbl_imagen.setIcon(icPeperoni);
-       
+
         //      SARTEN
         //Se obtiene la imagen de donde la tengamos
         ImageIcon imgIconSa = new ImageIcon(getClass().getResource("sarten.jpg"));
@@ -80,7 +80,7 @@ public class Ventana extends javax.swing.JFrame {
         icSarten = new ImageIcon(imgEscaladaSa);
         //Se setea la imagen en el Label
         lbl_imagen.setIcon(icSarten);
-        
+
         //      VEGETARIANA
         //Se obtiene la imagen de donde la tengamos
         ImageIcon imgIconVe = new ImageIcon(getClass().getResource("vegetariana.jpg"));
@@ -89,15 +89,16 @@ public class Ventana extends javax.swing.JFrame {
         icVegetariana = new ImageIcon(imgEscaladaVe);
         //Se setea la imagen en el Label
         lbl_imagen.setIcon(icVegetariana);
-        
+
     }
+
     //Onjetos de prueba
-    private void llenarPedidos(){
-            
-        pedido.add( new Pedido("Emmanuel", "Hawaiana", "Grande", "Queso", 110));
-        pedido.add( new Pedido("pepe", "peperoni", "mediana", "Biscochos", 220));
-        pedido.add( new Pedido("jose", "sartén", "chica", "hot Papas", 250));
-    
+    private void llenarPedidos() {
+
+        pedido.add(new Pedido("Emmanuel", "Hawaiana", "Grande", "Queso", 110));
+        pedido.add(new Pedido("pepe", "peperoni", "mediana", "Biscochos", 220));
+        pedido.add(new Pedido("jose", "sartén", "chica", "hot Papas", 250));
+
     }
 
     /**
@@ -523,10 +524,10 @@ public class Ventana extends javax.swing.JFrame {
 
     private void cbxSeleccionarPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSeleccionarPizzaActionPerformed
         lbl_imagen.setIcon(null);
-        switch(cbxSeleccionarPizza.getSelectedIndex()){
+        switch (cbxSeleccionarPizza.getSelectedIndex()) {
             case 0:
                 lbl_imagen.setIcon(null);
-                break;            
+                break;
             case 1:
                 lbl_imagen.setIcon(icHawaiana);
                 break;
@@ -543,7 +544,7 @@ public class Ventana extends javax.swing.JFrame {
                 lbl_imagen.setIcon(icSarten);
                 break;
         }
-        
+
         calcularPrecio();
     }//GEN-LAST:event_cbxSeleccionarPizzaActionPerformed
 
@@ -552,35 +553,52 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_rbChicaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String nombreCliente = tfNombreCliente.getText();
-    
-    String tamaño = null;
-    if(rbChica.isSelected()) tamaño = "Chica";
-    if(rbMediana.isSelected()) tamaño = "Mediana";
-    if(rbGrande.isSelected()) tamaño = "Grande";
-    if(rbFamiliar.isSelected()) tamaño = "Familiar";
-    
-    String extras = "";
-    if(cbExtraQueso.isSelected()) extras+= " ExtraQueso ";
-    if(cbHotPapas.isSelected()) extras+= " HotPapas ";
-    if(cbOrillaRellena.isSelected()) extras+= " OrillaRellena ";
-    if(cbBiscochos.isSelected()) extras+= " Biscochos ";
-    
-    String saborPizza = null;
-    saborPizza = cbxSeleccionarPizza.getItemAt(cbxSeleccionarPizza.getSelectedIndex());
-    
-    if(cbxSeleccionarPizza.getSelectedIndex() != 0){
-    
-        int a =0;
-        if(tfNombreCliente.getText() == null || tfNombreCliente.getText().equals(""))
-        a = JOptionPane.showConfirmDialog(rootPane, "Continuar sin nombre?");
-        
-        if(a == 0){
-            double precio = Double.parseDouble(lbPrecioTotal.getText());
-            pedido.add( new Pedido(nombreCliente, saborPizza, tamaño, extras, precio));
+        String nombreCliente = tfNombreCliente.getText();
 
-            int r=0;
-            for (Pedido p : pedido) {
+        String tamaño = null;
+        if (rbChica.isSelected()) {
+            tamaño = "Chica";
+        }
+        if (rbMediana.isSelected()) {
+            tamaño = "Mediana";
+        }
+        if (rbGrande.isSelected()) {
+            tamaño = "Grande";
+        }
+        if (rbFamiliar.isSelected()) {
+            tamaño = "Familiar";
+        }
+
+        String extras = "";
+        if (cbExtraQueso.isSelected()) {
+            extras += " ExtraQueso ";
+        }
+        if (cbHotPapas.isSelected()) {
+            extras += " HotPapas ";
+        }
+        if (cbOrillaRellena.isSelected()) {
+            extras += " OrillaRellena ";
+        }
+        if (cbBiscochos.isSelected()) {
+            extras += " Biscochos ";
+        }
+
+        String saborPizza = null;
+        saborPizza = cbxSeleccionarPizza.getItemAt(cbxSeleccionarPizza.getSelectedIndex());
+
+        if (cbxSeleccionarPizza.getSelectedIndex() != 0) {
+
+            int a = 0;
+            if (tfNombreCliente.getText() == null || tfNombreCliente.getText().equals("")) {
+                a = JOptionPane.showConfirmDialog(rootPane, "Continuar sin nombre?");
+            }
+
+            if (a == 0) {
+                double precio = Double.parseDouble(lbPrecioTotal.getText());
+                pedido.add(new Pedido(nombreCliente, saborPizza, tamaño, extras, precio));
+
+                int r = 0;
+                for (Pedido p : pedido) {
 
                     tbVentasDia.setValueAt(p.getNombreCliente(), r, 0);
                     tbVentasDia.setValueAt(p.getSaborPizza(), r, 1);
@@ -589,20 +607,19 @@ public class Ventana extends javax.swing.JFrame {
                     tbVentasDia.setValueAt(p.getPrecio(), r, 4);
                     r++;
                     int ventas = 0;
-                for (Pedido q: pedido) {
-                    ventas += q.getPrecio();
-                    lbTotalVentas.setText(String.valueOf(ventas));
+                    for (Pedido q : pedido) {
+                        ventas += q.getPrecio();
+                        lbTotalVentas.setText(String.valueOf(ventas));
+                    }
                 }
+                JOptionPane.showMessageDialog(rootPane, "Su pizza va en camino");
+            } else {
+                tfNombreCliente.setBackground(Color.red);
             }
-            JOptionPane.showMessageDialog(rootPane, "Su pizza va en camino");
-        }else{
-            tfNombreCliente.setBackground(Color.red);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleccione su pizza por favor");
         }
-    }
-    else {
-    JOptionPane.showMessageDialog(rootPane, "Seleccione su pizza por favor");
-    }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tfNombreClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNombreClienteFocusGained
@@ -610,7 +627,7 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNombreClienteFocusGained
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         acerca.setTitle("Acerca de pizzeria patito");
         acerca.setResizable(false);
         acerca.setLocationRelativeTo(null);
@@ -618,30 +635,49 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btn_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_imprimirActionPerformed
-        
+
         try {
             taNota.print();
         } catch (PrinterException ex) {
             Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btn_imprimirActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         //Navegador de archivos
         JFileChooser browser = new JFileChooser();
-        
+
         //Regresa 0 si se obtiene el archivo con exito
         //Regresa 1 si se da click en cancelar o cerrar
-        int resultado = browser.showSaveDialog(null);
-        
-        //Filtro de dialogo de archivos
-        FileNameExtensionFilter filtro= new FileNameExtensionFilter("Archivo de texto", "txt");
-        
-        //Se aplica filtro al explorador de archivos
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo de texto", "txt");
         browser.setFileFilter(filtro);
-        
+        int resultado = browser.showSaveDialog(null);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            String archivo = browser.getSelectedFile().getAbsolutePath()+".txt";
+            //Filtro de dialogo de archivos
+            
+
+            //Se aplica filtro al explorador de archivos
+            
+            
+            try{
+                String nota = taNota.getText();
+                
+                FileWriter wr = new FileWriter(archivo);
+                BufferedWriter buffer = new BufferedWriter(wr);
+                
+                buffer.write(nota);
+                buffer.close();
+                
+                JOptionPane.showMessageDialog(rootPane, "Se ha guardado");
+                
+            }catch(Exception e){
+                
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -715,72 +751,121 @@ public class Ventana extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void calcularPrecio() {
-        
-        final int CHICA = 0, MEDIANA = 1, GRANDE = 2, FAMILIAR =3;
+
+        final int CHICA = 0, MEDIANA = 1, GRANDE = 2, FAMILIAR = 3;
         int precio = 0;
-        int tam=0;
-        if (rbChica.isSelected()) 
-            tam =CHICA;
-        else if (rbMediana.isSelected())
-            tam=MEDIANA;
-        else if (rbGrande.isSelected())
-            tam=GRANDE;
-        else if (rbFamiliar.isSelected())
-            tam=FAMILIAR;
-        
-        switch (cbxSeleccionarPizza.getSelectedIndex()){
+        int tam = 0;
+        if (rbChica.isSelected()) {
+            tam = CHICA;
+        } else if (rbMediana.isSelected()) {
+            tam = MEDIANA;
+        } else if (rbGrande.isSelected()) {
+            tam = GRANDE;
+        } else if (rbFamiliar.isSelected()) {
+            tam = FAMILIAR;
+        }
+
+        switch (cbxSeleccionarPizza.getSelectedIndex()) {
             case 0:
-                switch(tam) {
-                    case CHICA: precio = 90; break;
-                    case MEDIANA: precio = 120; break;
-                    case GRANDE: precio = 170; break;
-                    case FAMILIAR: precio = 260; break;
+                switch (tam) {
+                    case CHICA:
+                        precio = 90;
+                        break;
+                    case MEDIANA:
+                        precio = 120;
+                        break;
+                    case GRANDE:
+                        precio = 170;
+                        break;
+                    case FAMILIAR:
+                        precio = 260;
+                        break;
                 }
                 break;
             case 1:
-                switch(tam) {
-                    case CHICA: precio = 90; break;
-                    case MEDIANA: precio = 120; break;
-                    case GRANDE: precio = 170; break;
-                    case FAMILIAR: precio = 260; break;
+                switch (tam) {
+                    case CHICA:
+                        precio = 90;
+                        break;
+                    case MEDIANA:
+                        precio = 120;
+                        break;
+                    case GRANDE:
+                        precio = 170;
+                        break;
+                    case FAMILIAR:
+                        precio = 260;
+                        break;
                 }
                 break;
             case 2:
-                switch(tam) {
-                    case CHICA: precio = 90; break;
-                    case MEDIANA: precio = 120; break;
-                    case GRANDE: precio = 170; break;
-                    case FAMILIAR: precio = 260; break;
+                switch (tam) {
+                    case CHICA:
+                        precio = 90;
+                        break;
+                    case MEDIANA:
+                        precio = 120;
+                        break;
+                    case GRANDE:
+                        precio = 170;
+                        break;
+                    case FAMILIAR:
+                        precio = 260;
+                        break;
                 }
                 break;
             case 3:
-                switch(tam) {
-                    case CHICA: precio = 90; break;
-                    case MEDIANA: precio = 120; break;
-                    case GRANDE: precio = 170; break;
-                    case FAMILIAR: precio = 260; break;
+                switch (tam) {
+                    case CHICA:
+                        precio = 90;
+                        break;
+                    case MEDIANA:
+                        precio = 120;
+                        break;
+                    case GRANDE:
+                        precio = 170;
+                        break;
+                    case FAMILIAR:
+                        precio = 260;
+                        break;
                 }
                 break;
             case 4:
-                switch(tam) {
-                    case CHICA: precio = 90; break;
-                    case MEDIANA: precio = 120; break;
-                    case GRANDE: precio = 170; break;
-                    case FAMILIAR: precio = 260; break;
+                switch (tam) {
+                    case CHICA:
+                        precio = 90;
+                        break;
+                    case MEDIANA:
+                        precio = 120;
+                        break;
+                    case GRANDE:
+                        precio = 170;
+                        break;
+                    case FAMILIAR:
+                        precio = 260;
+                        break;
                 }
                 break;
         }
-        if (cbExtraQueso.isSelected()) precio += 10;
-        if (cbOrillaRellena.isSelected()) precio += 10;
-        if (cbHotPapas.isSelected()) precio += 10;
-        if (cbBiscochos.isSelected()) precio += 10;
-        
+        if (cbExtraQueso.isSelected()) {
+            precio += 10;
+        }
+        if (cbOrillaRellena.isSelected()) {
+            precio += 10;
+        }
+        if (cbHotPapas.isSelected()) {
+            precio += 10;
+        }
+        if (cbBiscochos.isSelected()) {
+            precio += 10;
+        }
+
         lbPrecioTotal.setText(String.valueOf(precio));
-        
+
         genera_Nota();
     }
-    
-    public void genera_Nota(){
+
+    public void genera_Nota() {
         taNota.setText("=== Pizzería patito===\n");
         taNota.append("----------------------");
     }
