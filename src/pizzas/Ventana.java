@@ -632,6 +632,8 @@ public class Ventana extends javax.swing.JFrame {
         //Navegador de archivos
         JFileChooser browser = new JFileChooser();
         
+        //Regresa 0 si se obtiene el archivo con exito
+        //Regresa 1 si se da click en cancelar o cerrar
         int resultado = browser.showSaveDialog(null);
         
         //Filtro de dialogo de archivos
