@@ -634,8 +634,10 @@ public class Ventana extends javax.swing.JFrame {
         
         int resultado = browser.showSaveDialog(null);
         
+        //Filtro de dialogo de archivos
         FileNameExtensionFilter filtro= new FileNameExtensionFilter("Archivo de texto", "txt");
         
+        //Se aplica filtro al explorador de archivos
         browser.setFileFilter(filtro);
         
     }//GEN-LAST:event_jButton3ActionPerformed
