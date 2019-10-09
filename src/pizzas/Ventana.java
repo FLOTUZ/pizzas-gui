@@ -15,6 +15,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -632,6 +633,11 @@ public class Ventana extends javax.swing.JFrame {
         JFileChooser browser = new JFileChooser();
         
         int resultado = browser.showSaveDialog(null);
+        
+        FileNameExtensionFilter filtro= new FileNameExtensionFilter("Archivo de texto", "txt");
+        
+        browser.setFileFilter(filtro);
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
