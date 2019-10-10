@@ -652,6 +652,7 @@ public class Ventana extends javax.swing.JFrame {
         //Regresa 0 si se obtiene el archivo con exito
         //Regresa 1 si se da click en cancelar o cerrar
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo de texto", "txt");
+        //Se aplica filtro al explorador de archivos
         browser.setFileFilter(filtro);
         int resultado = browser.showSaveDialog(null);
 
@@ -660,8 +661,8 @@ public class Ventana extends javax.swing.JFrame {
             //Filtro de dialogo de archivos
             
 
-            //Se aplica filtro al explorador de archivos
             
+            //Se exporta la nota  a un archivo txt
             
             try{
                 String nota = taNota.getText();
